@@ -20,4 +20,6 @@ Sizes: S <1 day, M 1–3 days, L 3+ days.
 
 ## Open steps
 
+- [ ] **2.2 decide VNC bind/auth posture** (S). Pick one: document LAN-only risk, default to `127.0.0.1` + SSH forward, or add wayvnc auth — then implement it and record the decision in `service.md`. Done when: the chosen posture is live in the script defaults and `service.md` states the decision + reason.
+
 
