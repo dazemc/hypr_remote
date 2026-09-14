@@ -29,4 +29,5 @@ escalates them to `.llm/todo.md` (see `AGENTS.md` → Instruction precedence).
 
 ## Open suggestions
 
+- `hypr_remote.sh` has no `set -euo pipefail` (only `install.sh` got it in 1.4): a failed `hyprctl output create` continues blindly into workspace moves on a nonexistent monitor. Add strict mode so a dead compositor socket aborts before anything moves.
 - VNC binds `0.0.0.0:5900` with no auth note: anyone on the LAN can connect. Decide: document LAN-only risk, default to `127.0.0.1` + SSH forward, or add wayvnc auth. Record the decision in `service.md`.
