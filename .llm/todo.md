@@ -20,5 +20,4 @@ Sizes: S <1 day, M 1–3 days, L 3+ days.
 
 ## Open steps
 
-- [ ] **1.5 scope wayvnc cleanup to own session** (S). `pkill wayvnc` kills unrelated sessions and `trap ... EXIT` runs moves after startup failure — track `$!` or scope `pkill -f`, guard cleanup on successful start. Done when: dry-logic review shows only the owned server is stopped and failed starts leave monitors untouched.
 - [ ] **1.6 parameterize monitor/workspace names** (S). `HEADLESS-2`, `10`, `HDMI-A-1` hardcoded — read `${VAR:-default}` overrides so per-host values never touch the repo. Done when: defaults reproduce current behavior and overrides flow through to `hyprctl` + `wayvnc` without editing tracked files.
