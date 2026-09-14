@@ -20,5 +20,4 @@ Sizes: S <1 day, M 1–3 days, L 3+ days.
 
 ## Open steps
 
-(none — no authorized work. New steps arrive here only when the user
-escalates a suggestion or requests work.)
+- [ ] **1.1 ignore working deploy artifacts** (S). Add `*.working` to `.gitignore`, delete the tracked-tree copy if one exists. Done when: `git status` no longer shows `hypr_remote.service.working` and substituted files with real values can't be committed.
