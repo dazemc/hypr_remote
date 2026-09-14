@@ -4,8 +4,15 @@ VIRTUAL_MONITOR="HEADLESS-2"
 VIRTUAL_WORKSPACE=10
 REAL_MONITOR="HDMI-A-1"
 
+WAYVNC_PID=""
+STARTED=0
+
 cleanup() {
-  pkill wayvnc
+  [[ "$STARTED" -eq 1 ]] || return 0
+  STARTED=0
+  if [[ -n "$WAYVNC_PID" ]] && kill -0 "$WAYVNC_PID" 2>/dev/null; then
+    kill "$WAYVNC_PID" 2>/dev/null || true
+  fi
   hyprctl dispatch moveworkspacetomonitor "$VIRTUAL_WORKSPACE" "$REAL_MONITOR"
   hyprctl dispatch focusmonitor "$REAL_MONITOR"
 }
@@ -24,7 +31,10 @@ main() {
 
   hyprctl dispatch focusmonitor "$VIRTUAL_MONITOR"
 
-  wayvnc 0.0.0.0 5900 "$VIRTUAL_MONITOR"
+  wayvnc 0.0.0.0 5900 "$VIRTUAL_MONITOR" &
+  WAYVNC_PID=$!
+  STARTED=1
+  wait "$WAYVNC_PID"
 }
 
 main
