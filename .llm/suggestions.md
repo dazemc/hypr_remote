@@ -30,4 +30,3 @@ escalates them to `.llm/todo.md` (see `AGENTS.md` → Instruction precedence).
 ## Open suggestions
 
 - VNC binds `0.0.0.0:5900` with no auth note: anyone on the LAN can connect. Decide: document LAN-only risk, default to `127.0.0.1` + SSH forward, or add wayvnc auth. Record the decision in `service.md`.
-- Monitor/workspace/output names hardcoded (`HEADLESS-2`, `10`, `HDMI-A-1`): any second machine edits tracked files. Read `${VAR:-default}` overrides so per-host values never touch the repo.
