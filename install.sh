@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+set -euo pipefail
+command -v wayvnc >/dev/null || { echo "hypr_remote: missing required command: wayvnc" >&2; exit 1; }
+command -v hyprctl >/dev/null || { echo "hypr_remote: missing required command: hyprctl" >&2; exit 1; }
 mkdir -p ~/.config/systemd/user/
 mkdir -p ~/.local/bin/
 WORK_DIR="$(mktemp -d)"
