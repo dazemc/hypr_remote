@@ -1,0 +1,2 @@
+# Substituted deploy artifacts (carry real $USER / $XDG_RUNTIME_DIR) — never commit.
+*.working
