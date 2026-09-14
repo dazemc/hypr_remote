@@ -29,7 +29,6 @@ escalates them to `.llm/todo.md` (see `AGENTS.md` → Instruction precedence).
 
 ## Open suggestions
 
-- Pre-existing `M` edits unsettled: `hypr_remote.sh`, `hypr_remote.service`, `install.sh` have working-tree changes predating governance. Slice them per workflow (`working` for scripts, `master` one-file-per-commit for docs) before queuing new work.
 - `install.sh` builds inside the repo: `cp` + `sed -i` on `./hypr_remote.service.working` leaves a dirty artifact with real values. Build in `mktemp -d` and trap-clean it instead.
 - `install.sh` has no `set -euo pipefail`: a failed `cp` still runs `daemon-reload`, reporting success on a partial deploy. Add strict mode and check `wayvnc`/`hyprctl` presence first.
 - `pkill wayvnc` is unscoped and `trap ... EXIT` fires on every exit: kills unrelated VNC sessions and runs `hyprctl` moves even after startup failure. Track the PID (`$!`) or `pkill -f "wayvnc.*$VIRTUAL_MONITOR"`, and guard cleanup on successful start.
