@@ -29,7 +29,6 @@ escalates them to `.llm/todo.md` (see `AGENTS.md` → Instruction precedence).
 
 ## Open suggestions
 
-- `*.working` deploy artifact leaks username: `hypr_remote.service.working` is untracked and carries the real `$USER`/`$XDG_RUNTIME_DIR`. Add `*.working` to `.gitignore` and never commit substituted files.
 - Pre-existing `M` edits unsettled: `hypr_remote.sh`, `hypr_remote.service`, `install.sh` have working-tree changes predating governance. Slice them per workflow (`working` for scripts, `master` one-file-per-commit for docs) before queuing new work.
 - `install.sh` builds inside the repo: `cp` + `sed -i` on `./hypr_remote.service.working` leaves a dirty artifact with real values. Build in `mktemp -d` and trap-clean it instead.
 - `install.sh` has no `set -euo pipefail`: a failed `cp` still runs `daemon-reload`, reporting success on a partial deploy. Add strict mode and check `wayvnc`/`hyprctl` presence first.
