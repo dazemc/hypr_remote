@@ -20,4 +20,3 @@ Sizes: S <1 day, M 1–3 days, L 3+ days.
 
 ## Open steps
 
-- [ ] **1.6 parameterize monitor/workspace names** (S). `HEADLESS-2`, `10`, `HDMI-A-1` hardcoded — read `${VAR:-default}` overrides so per-host values never touch the repo. Done when: defaults reproduce current behavior and overrides flow through to `hyprctl` + `wayvnc` without editing tracked files.
