@@ -30,7 +30,15 @@ install.sh              deploy: substitute RESU/GDX from live env,
   onto the real monitor on exit).
 - Real monitor: `HDMI-A-1` (cleanup target; where the local session keeps
   working while the remote client uses the headless output).
-- VNC endpoint: `0.0.0.0:5900` against `HEADLESS-2`.
+- VNC endpoint: `127.0.0.1:5900` against `HEADLESS-2` (localhost-only).
+
+## Security decision (2.2)
+
+WayVNC serves with no authentication, so the default bind is localhost and
+remote access goes over `ssh -L 5900:localhost:5900 <host>`. LAN-wide exposure
+(`HYPR_REMOTE_BIND=0.0.0.0`) is supported for trusted networks only — the
+traffic is unencrypted VNC either way. Revisit if wayvnc gains usable auth
+or TLS-by-default.
 
 Per-host overrides (never edit the script per machine):
 `HYPR_REMOTE_MONITOR`, `HYPR_REMOTE_WORKSPACE`, `HYPR_REMOTE_REAL_MONITOR`,

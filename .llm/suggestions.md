@@ -29,3 +29,5 @@ escalates them to `.llm/todo.md` (see `AGENTS.md` → Instruction precedence).
 
 ## Open suggestions
 
+- README still describes the pre-rewrite layout in places (workspace 3, `DP-2`, `/etc/hyprland_env`, system paths): reconcile the How-it-works/Notes sections with the user-scope rewrite so the docs match the script.
+
