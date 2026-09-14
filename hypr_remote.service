@@ -5,9 +5,7 @@ After=hyprland.service graphical.target
 [Service]
 Type=simple
 User=RESU
-EnvironmentFile=/etc/hyprland_env
-Environment=XDG_RUNTIME_DIR=GDX
-ExecStart=/usr/local/bin/hypr_remote.sh
+ExecStart=%h/.local/bin/hypr_remote.sh
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=graphical.target
