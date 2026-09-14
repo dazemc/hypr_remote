@@ -29,7 +29,6 @@ escalates them to `.llm/todo.md` (see `AGENTS.md` → Instruction precedence).
 
 ## Open suggestions
 
-- `install.sh` builds inside the repo: `cp` + `sed -i` on `./hypr_remote.service.working` leaves a dirty artifact with real values. Build in `mktemp -d` and trap-clean it instead.
 - `install.sh` has no `set -euo pipefail`: a failed `cp` still runs `daemon-reload`, reporting success on a partial deploy. Add strict mode and check `wayvnc`/`hyprctl` presence first.
 - `pkill wayvnc` is unscoped and `trap ... EXIT` fires on every exit: kills unrelated VNC sessions and runs `hyprctl` moves even after startup failure. Track the PID (`$!`) or `pkill -f "wayvnc.*$VIRTUAL_MONITOR"`, and guard cleanup on successful start.
 - VNC binds `0.0.0.0:5900` with no auth note: anyone on the LAN can connect. Decide: document LAN-only risk, default to `127.0.0.1` + SSH forward, or add wayvnc auth. Record the decision in `service.md`.
