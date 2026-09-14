@@ -29,4 +29,3 @@ escalates them to `.llm/todo.md` (see `AGENTS.md` → Instruction precedence).
 
 ## Open suggestions
 
-- VNC binds `0.0.0.0:5900` with no auth note: anyone on the LAN can connect. Decide: document LAN-only risk, default to `127.0.0.1` + SSH forward, or add wayvnc auth. Record the decision in `service.md`.
