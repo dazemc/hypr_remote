@@ -14,8 +14,7 @@ This project provides scripts and a systemd service to create a virtual monitor 
 
 - Hyprland window manager
 - WayVNC installed
-- Systemd for service management
-- Sudo privileges for installation
+- Systemd for service management (user scope — no sudo needed)
 
 ## Installation
 
@@ -25,22 +24,20 @@ This project provides scripts and a systemd service to create a virtual monitor 
    chmod +x install.sh
    ./install.sh
    ```
-3. Enable and start the service:
+3. Enable and start the user service:
    ```bash
-   sudo systemctl enable hypr_remote.service
-   sudo systemctl start hypr_remote.service
+   systemctl --user enable --now hypr_remote.service
    ```
 
 ## How It Works
 
-- **Service (`hypr_remote.service`)**: Runs `hypr_remote.sh` as a systemd service, starting after Hyprland and graphical target are ready. It uses environment variables from `/etc/hyprland_env`.
+- **Service (`hypr_remote.service`)**: Runs `hypr_remote.sh` as a systemd *user* service (`WantedBy=graphical.target`), starting after Hyprland and the graphical target are ready. `RESU` in the template is substituted with your username at install time.
 - **Script (`hypr_remote.sh`)**:
-  - Checks for Hyprland environment variables (`HYPRLAND_INSTANCE_SIGNATURE`, `WAYLAND_DISPLAY`).
-  - Creates a headless monitor (`HEADLESS-2`) if it doesn't exist.
-  - Moves workspace 3 to the virtual monitor and focuses back to the primary monitor (`DP-2`).
+  - Removes any stale `HEADLESS-2` output, then creates a headless monitor (`HEADLESS-2`).
+  - Moves workspace 10 to the virtual monitor and focuses it so the served output shows the scratch workspace.
   - Starts WayVNC on `127.0.0.1:5900` for remote access to the virtual monitor (localhost-only by default; override with `HYPR_REMOTE_BIND`).
   - Cleans up on exit by moving the workspace back and stopping WayVNC.
-- **Install Script (`install.sh`)**: Copies files to system locations, replacing placeholders for user and runtime directory, and reloads systemd.
+- **Install Script (`install.sh`)**: Copies the unit to `~/.config/systemd/user/` and the script to `~/.local/bin/`, substituting the `RESU` placeholder, then reloads the user daemon. Builds the substituted unit in a temp dir so the repo stays clean.
 
 ## Usage
 
@@ -54,8 +51,7 @@ To expose it on the LAN instead (unencrypted — trusted networks only), set `HY
 
 ## Notes
 
-- The virtual monitor is named `HEADLESS-2`, and workspace 3 is used by default. Modify `hypr_remote.sh` to change these.
-- The primary monitor is assumed to be `DP-2`. Update this in `hypr_remote.sh` if needed.
+- The virtual monitor is named `HEADLESS-2`, workspace `10`, and the real monitor `HDMI-A-1` by default. Override per host without editing tracked files: `HYPR_REMOTE_MONITOR`, `HYPR_REMOTE_WORKSPACE`, `HYPR_REMOTE_REAL_MONITOR`, `HYPR_REMOTE_BIND`, `HYPR_REMOTE_PORT`.
 - Ensure WayVNC and Hyprland are properly configured before running.
 
 ## License
