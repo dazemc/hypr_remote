@@ -38,13 +38,19 @@ This project provides scripts and a systemd service to create a virtual monitor 
   - Checks for Hyprland environment variables (`HYPRLAND_INSTANCE_SIGNATURE`, `WAYLAND_DISPLAY`).
   - Creates a headless monitor (`HEADLESS-2`) if it doesn't exist.
   - Moves workspace 3 to the virtual monitor and focuses back to the primary monitor (`DP-2`).
-  - Starts WayVNC on `0.0.0.0:5900` for remote access to the virtual monitor.
+  - Starts WayVNC on `127.0.0.1:5900` for remote access to the virtual monitor (localhost-only by default; override with `HYPR_REMOTE_BIND`).
   - Cleans up on exit by moving the workspace back and stopping WayVNC.
 - **Install Script (`install.sh`)**: Copies files to system locations, replacing placeholders for user and runtime directory, and reloads systemd.
 
 ## Usage
 
-After installation, the service automatically starts WayVNC on a virtual monitor. Connect to the VNC server at `<your-ip>:5900` using a VNC client.
+After installation, the service automatically starts WayVNC on a virtual monitor, bound to localhost. Forward it over SSH and connect your VNC client to `localhost:5900`:
+
+```bash
+ssh -L 5900:localhost:5900 <your-host>
+```
+
+To expose it on the LAN instead (unencrypted — trusted networks only), set `HYPR_REMOTE_BIND=0.0.0.0` in the service environment.
 
 ## Notes
 
