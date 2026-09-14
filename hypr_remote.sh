@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 VIRTUAL_MONITOR="${HYPR_REMOTE_MONITOR:-HEADLESS-2}"
 VIRTUAL_WORKSPACE="${HYPR_REMOTE_WORKSPACE:-10}"
@@ -22,7 +23,7 @@ cleanup() {
 trap cleanup INT TERM EXIT
 
 main() {
-  hyprctl output remove "$VIRTUAL_MONITOR" 2>/dev/null
+  hyprctl output remove "$VIRTUAL_MONITOR" 2>/dev/null || true
   sleep 0.2
   hyprctl output create headless "$VIRTUAL_MONITOR"
   sleep 0.5
