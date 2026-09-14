@@ -20,5 +20,4 @@ Sizes: S <1 day, M 1–3 days, L 3+ days.
 
 ## Open steps
 
-- [ ] **2.1 strict mode for hypr_remote.sh** (S). Add `set -euo pipefail` so a failed `hyprctl output create` aborts before workspace moves. Done when: a stubbed failing `hyprctl` aborts the run with nonzero exit and `bash -n` + `shellcheck` are clean.
 
